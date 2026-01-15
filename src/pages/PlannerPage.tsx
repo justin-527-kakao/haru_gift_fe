@@ -25,11 +25,11 @@ interface PlanItem {
 
 // 대화에서 추출된 키 포인트 (더미 데이터 - 나중에 LLM이 생성)
 const EXTRACTED_INSIGHTS = [
-  { id: '1', text: '양식은 잘 못 먹음' },
-  { id: '2', text: '조용하고 프라이빗한 공간 선호' },
-  { id: '3', text: '걷는 것을 좋아하지 않음' },
-  { id: '4', text: '사진 찍기 좋은 곳 선호' },
-  { id: '5', text: '예산은 10만원 내외' },
+  { id: '1', text: '추운 날씨 걱정 → 실내 데이트 위주' },
+  { id: '2', text: '루아가 밀가루 끊음 → 한식 위주' },
+  { id: '3', text: '핫플보다 조용한 곳 선호' },
+  { id: '4', text: '바다 보고 싶어함' },
+  { id: '5', text: '100일 기념 특별한 하루' },
 ];
 
 const PlannerPage = () => {
@@ -38,8 +38,8 @@ const PlannerPage = () => {
 
   // 1. 상태 관리 (Wizard State)
   const [step, setStep] = useState(1); // 1, 2, 3 단계
-  const [region, setRegion] = useState('');
-  const [purpose, setPurpose] = useState('');
+  const [region, setRegion] = useState('을지로');
+  const [purpose, setPurpose] = useState('100일 기념');
   const [additionalReq, setAdditionalReq] = useState('');
 
   // 드래그 앤 드롭을 위한 리스트 상태
@@ -49,6 +49,7 @@ const PlannerPage = () => {
   ]);
 
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // 2. 기능 핸들러
   const handleNext = () => {
@@ -94,36 +95,43 @@ const PlannerPage = () => {
 //     }
 //   };
   const handleSubmit = () => {
-    // 1. 사용자 입력(schedule)을 기반으로 실제 데이터(Random) 매핑
-    const generatedPlaces: Place[] = planItems.map((item, index) => {
-      const mockData = getRandomPlace(item.label); // '식사', '카페' 등으로 조회
-      
-      return {
-        id: item.id, // ID 유지
-        order: index + 1,
-        name: mockData.name || item.label, // 더미 데이터 없으면 기본 라벨
-        category: item.label,
-        location: mockData.location || region || '서울',
-        rating: mockData.rating || 4.5,
-        reviewCount: 100 + Math.floor(Math.random() * 500),
-        intro: mockData.intro || 'AI가 추천하는 핫플레이스',
-        imageUrl: mockData.imageUrl || 'https://source.unsplash.com/random/400x300/?korea,travel',
-        userMemo: ''
+    // 로딩 시작
+    setIsLoading(true);
+
+    // 2.5초 후 실행
+    setTimeout(() => {
+      // 1. 사용자 입력(schedule)을 기반으로 실제 데이터(Random) 매핑
+      const generatedPlaces: Place[] = planItems.map((item, index) => {
+        const mockData = getRandomPlace(item.label); // '식사', '카페' 등으로 조회
+
+        return {
+          id: item.id, // ID 유지
+          order: index + 1,
+          name: mockData.name || item.label, // 더미 데이터 없으면 기본 라벨
+          category: item.label,
+          location: mockData.location || region || '서울',
+          rating: mockData.rating || 4.5,
+          reviewCount: 100 + Math.floor(Math.random() * 500),
+          intro: mockData.intro || 'AI가 추천하는 핫플레이스',
+          imageUrl: mockData.imageUrl || 'https://source.unsplash.com/random/400x300/?korea,travel',
+          userMemo: ''
+        };
+      });
+
+      // 2. 전체 코스 데이터 생성
+      const newItinerary: Itinerary = {
+        id: `trip_${Date.now()}`,
+        theme: purpose || '힐링 여행',
+        targetName: '루아', // 이건 앞단에서 받아오거나 하드코딩
+        places: generatedPlaces,
+        finalLetter: ''
       };
-    });
 
-    // 2. 전체 코스 데이터 생성
-    const newItinerary: Itinerary = {
-      id: `trip_${Date.now()}`,
-      theme: purpose || '힐링 여행',
-      targetName: '루아', // 이건 앞단에서 받아오거나 하드코딩
-      places: generatedPlaces,
-      finalLetter: ''
-    };
-
-    // 3. 저장 후 이동
-    setItinerary(newItinerary);
-    navigate('/result');
+      // 3. 저장 후 이동
+      setItinerary(newItinerary);
+      setIsLoading(false);
+      navigate('/result');
+    }, 2500);
   };
 
   // 3. 단계별 화면 렌더링
@@ -273,6 +281,39 @@ const PlannerPage = () => {
           {step === 3 ? '코스 생성하기' : '다음'}
         </button>
       </div>
+
+      {/* 로딩 오버레이 */}
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 bg-white z-50 flex flex-col items-center justify-center"
+          >
+            {/* 로딩 애니메이션 */}
+            <div className="flex gap-2 mb-6">
+              <motion.div
+                animate={{ y: [0, -12, 0] }}
+                transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
+                className="w-4 h-4 bg-[#FEE500] rounded-full"
+              />
+              <motion.div
+                animate={{ y: [0, -12, 0] }}
+                transition={{ duration: 0.6, repeat: Infinity, delay: 0.15 }}
+                className="w-4 h-4 bg-[#FEE500] rounded-full"
+              />
+              <motion.div
+                animate={{ y: [0, -12, 0] }}
+                transition={{ duration: 0.6, repeat: Infinity, delay: 0.3 }}
+                className="w-4 h-4 bg-[#FEE500] rounded-full"
+              />
+            </div>
+            <p className="text-lg font-bold text-gray-800 mb-2">코스를 만들고 있어요</p>
+            <p className="text-sm text-gray-400">잠시만 기다려주세요...</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* 바텀 시트 (Step 2 - 추가하기) */}
       <AnimatePresence>
