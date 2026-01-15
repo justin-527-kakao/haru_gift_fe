@@ -175,6 +175,7 @@ import {
   Image as ImageIcon, Camera, Phone, Gift,
   CreditCard, Gamepad2, MapPin, Smile
 } from 'lucide-react';
+import thumbsSvg from '../assets/Thubs.svg';
 
 // ⭐️ 리얼한 커플 대화 데이터 (100일 기념 + 을지로)
 const INITIAL_MESSAGES: ChatMessage[] = [
@@ -322,20 +323,12 @@ const ChatPage = () => {
               className="w-[280px] bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 cursor-pointer active:scale-[0.98] transition-transform"
             >
               {/* 상단 이미지 영역 */}
-              <div className="h-[160px] bg-gradient-to-br from-emerald-400 to-teal-500 relative overflow-hidden">
-                {/* 일러스트 배경 */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-white/20 text-8xl">🌳</div>
-                </div>
-                <div className="absolute top-4 left-4 text-white">
-                  <p className="text-lg font-bold leading-tight">
-                    조금 쉬었다가도<br/>괜찮아
-                  </p>
-                </div>
-                {/* 나무 이모지들 */}
-                <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-2 pb-2 text-3xl">
-                  🌲🌳🌲
-                </div>
+              <div className="h-[160px] relative overflow-hidden">
+                <img
+                  src={thumbsSvg}
+                  alt="선물 카드"
+                  className="w-full h-full object-cover"
+                />
               </div>
 
               {/* 장소 썸네일 */}
@@ -373,7 +366,7 @@ const ChatPage = () => {
               </div>
 
               {/* 하단 */}
-              <div className="px-4 py-3 border-t border-gray-100 flex items-center justify-between">
+              <div className="px-4 py-1 border-t border-gray-100 flex items-center justify-between">
                 <div className="flex items-center gap-1.5 text-xs text-gray-400">
                   <span>🎁</span>
                   <span>카카오톡 하루선물</span>

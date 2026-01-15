@@ -38,16 +38,16 @@ const CourseMapPage = () => {
   return (
     <div className="flex flex-col h-full bg-white relative">
 
-      {/* 헤더 */}
-      <div className="h-14 flex items-center px-4 bg-white/90 backdrop-blur-sm sticky top-0 z-20 border-b border-gray-100">
-        <button onClick={() => navigate(isViewOnly ? '/gift-view' : '/result')} className="p-1">
-          <ArrowLeft className="w-6 h-6 text-black" />
-        </button>
-        <span className="font-bold text-lg ml-2">코스 상세</span>
-      </div>
-
       {/* 지도 + 하단 카드 */}
       <div className="flex-1 relative">
+
+        {/* 뒤로가기 버튼 (floating) */}
+        <button
+          onClick={() => navigate(isViewOnly ? '/gift-view' : '/result')}
+          className="absolute top-4 left-4 z-30 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center hover:bg-gray-50"
+        >
+          <ArrowLeft className="w-5 h-5 text-gray-700" />
+        </button>
 
         {/* 지도 영역 (더미) - 전체 화면 */}
         <div className="absolute inset-0 bg-gray-200 overflow-hidden">
@@ -112,13 +112,7 @@ const CourseMapPage = () => {
             </div>
           </div>
 
-          {/* 지도 안내 텍스트 */}
-          <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-2 rounded-lg shadow-sm">
-            <div className="flex items-center gap-2 text-sm text-gray-600">
-              <MapPin size={16} className="text-blue-500" />
-              <span>장소를 탭해서 상세 정보를 확인하세요</span>
-            </div>
-          </div>
+          
         </div>
 
         {/* 하단 장소 카드 - 횡스크롤 (floating) */}

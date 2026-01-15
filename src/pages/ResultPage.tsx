@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useItinerary } from '../context/ItineraryContext';
 import { useDragScroll } from '../hooks/useDragScroll';
-import { X, Pencil } from 'lucide-react';
+import { X, Pencil, Menu } from 'lucide-react';
 import resultCardBg from '../assets/result_card.svg';
 
 const ResultPage = () => {
@@ -35,14 +35,20 @@ const ResultPage = () => {
     <div className="flex flex-col h-full bg-white relative">
 
       {/* 헤더 */}
-      <div className="h-14 flex items-center justify-center px-4 border-b border-gray-100 bg-white sticky top-0 z-20 relative">
+      <div className="h-14 flex items-center justify-center px-4 bg-white sticky top-0 z-20 relative">
         <button
           onClick={() => navigate('/')}
-          className="absolute left-4 p-1"
+          className="absolute left-4 p-1 hover:bg-gray-100 rounded-full"
         >
           <X className="w-6 h-6 text-black" />
         </button>
         <span className="font-bold text-lg">하루선물</span>
+        <button
+          onClick={() => {}}
+          className="absolute right-4 p-1 hover:bg-gray-100 rounded-full"
+        >
+          <Menu className="w-6 h-6 text-black" />
+        </button>
       </div>
 
       {/* 카드 뷰 */}
@@ -69,9 +75,10 @@ const ResultPage = () => {
 
               {/* 텍스트 오버레이 */}
               <div className="absolute top-8 left-6 right-6">
-                <h2 className="text-4xl font-bold text-black leading-snug">
+                <h2 className="text-4xl font-bold text-black leading-snug" style={{ fontFamily: 'KakaoBigSans' }}>
                   {itinerary.theme}<br/>
-                  {itinerary.region} 나들이
+                  {itinerary.region}<br/>
+                  나들이
                 </h2>
               </div>
             </div>

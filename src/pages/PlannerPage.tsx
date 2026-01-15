@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useItinerary } from '../context/ItineraryContext';
-import { ArrowLeft, X, Plus, GripVertical, Utensils, Coffee, Clapperboard, BedDouble, Ticket, AlertCircle } from 'lucide-react';
+import { ArrowLeft, X, Plus, GripVertical, Utensils, Coffee, Clapperboard, BedDouble, Ticket, AlertCircle, FilmIcon } from 'lucide-react';
 import { motion, Reorder, AnimatePresence } from 'framer-motion';
 import { generateCourse, transformApiResponseToPlaces, ApiError } from '../services/api';
 import type { Itinerary } from '../types';
@@ -12,7 +12,6 @@ const CATEGORY_OPTIONS = [
   { label: '음식점', icon: <Utensils size={20} />, type: '식사' },
   { label: '카페', icon: <Coffee size={20} />, type: '카페' },
   { label: '문화시설', icon: <Clapperboard size={20} />, type: '문화시설' },
-  { label: '관광명소', icon: <Ticket size={20} />, type: '관광명소' },
   { label: '숙소', icon: <BedDouble size={20} />, type: '숙소' },
 ];
 
@@ -220,8 +219,7 @@ const PlannerPage = () => {
                           {/* 아이콘 매핑 (간단히) */}
                           {item.label === '음식점' && <Utensils size={18} />}
                           {item.label === '카페' && <Coffee size={18} />}
-                          {item.label === '영화관' && <Clapperboard size={18} />}
-                          {item.label === '전시' && <Ticket size={18} />}
+                          {item.label === '문화시설' && <Clapperboard size={18} />}
                           {item.label === '숙소' && <BedDouble size={18} />}
                        </div>
                        <div className="flex flex-col">
