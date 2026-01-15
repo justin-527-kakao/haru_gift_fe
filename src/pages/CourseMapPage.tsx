@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useItinerary } from '../context/ItineraryContext';
 import { useDragScroll } from '../hooks/useDragScroll';
 import { ArrowLeft, Star, Calendar, RefreshCw, MapPin, Lightbulb } from 'lucide-react';
-import { parseCoordinates } from '../services/api';
+// import { parseCoordinates } from '../services/api.ts';
 
 const CourseMapPage = () => {
   const navigate = useNavigate();

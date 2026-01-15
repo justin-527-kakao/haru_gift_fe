@@ -35,13 +35,18 @@ export type CourseGenerateResponse = ApiPlaceResponse[];
 
 // 에러 타입
 export class ApiError extends Error {
+  statusCode?: number;
+  isTimeout: boolean;
+
   constructor(
     message: string,
-    public statusCode?: number,
-    public isTimeout: boolean = false
+    statusCode?: number,
+    isTimeout: boolean = false
   ) {
     super(message);
     this.name = 'ApiError';
+    this.statusCode = statusCode;
+    this.isTimeout = isTimeout;
   }
 }
 
