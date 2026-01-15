@@ -202,7 +202,7 @@ const INITIAL_MESSAGES: ChatMessage[] = [
 
 const ChatPage = () => {
   const navigate = useNavigate();
-  const { giftSent, itinerary, letter } = useItinerary();
+  const { giftSent, itinerary } = useItinerary();
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const [input, setInput] = useState('');
