@@ -78,7 +78,7 @@ const ResultPage = () => {
                 </h2>
                 <p className="text-white/80 text-sm leading-relaxed">
                   함께여서 더 의미 있는,<br/>
-                  낭만이고 소박한 {itinerary.targetName}과의 하루
+                  낭만이고 소박한 {itinerary.targetName}와의 하루
                 </p>
               </div>
             </div>

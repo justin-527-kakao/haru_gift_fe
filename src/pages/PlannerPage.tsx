@@ -116,9 +116,9 @@ const PlannerPage = () => {
     const newItinerary: Itinerary = {
       id: `trip_${Date.now()}`,
       theme: purpose || '힐링 여행',
-      targetName: '여친님', // 이건 앞단에서 받아오거나 하드코딩
+      targetName: '루아', // 이건 앞단에서 받아오거나 하드코딩
       places: generatedPlaces,
-      finalLetter: `"${additionalReq}" 내용을 참고해서 코스를 짰어. 특히 ${region} 쪽에서 인기 많은 곳들로 골라봤으니까 마음에 들 거야! ❤️`
+      finalLetter: ''
     };
 
     // 3. 저장 후 이동

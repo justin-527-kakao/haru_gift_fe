@@ -66,18 +66,19 @@ const LetterWritePage = () => {
         />
 
         {/* 하단 키워드 섹션 */}
-        <div className="mt-6 pt-4 border-t border-gray-100">
-          <p className="text-xs text-gray-400 mb-3">
-            {itinerary.targetName}님의 고민의 과정, 히스토리 키워드
+        <div className="mt-6 pt-6 border-t border-gray-100">
+          <p className="text-sm text-gray-400 mb-4">
+            {itinerary.targetName}의 고민의 과정, 히스토리 키워드
           </p>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-3">
             {HISTORY_KEYWORDS.map((keyword, idx) => (
-              <span
+              <button
                 key={idx}
-                className="px-3 py-1.5 bg-gray-100 text-gray-600 text-xs rounded-full"
+                onClick={() => setLocalLetter(prev => prev ? `${prev} ${keyword}` : keyword)}
+                className="px-5 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium rounded-full transition-colors active:scale-95"
               >
                 {keyword}
-              </span>
+              </button>
             ))}
           </div>
         </div>
