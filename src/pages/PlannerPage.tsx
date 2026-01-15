@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useItinerary } from '../context/ItineraryContext';
-import { ArrowLeft, X, Plus, GripVertical, Utensils, Coffee, Clapperboard, BedDouble, Ticket, AlertCircle, FilmIcon } from 'lucide-react';
+import { ArrowLeft, X, Plus, GripVertical, Utensils, Coffee, Clapperboard, BedDouble, AlertCircle } from 'lucide-react';
 import { motion, Reorder, AnimatePresence } from 'framer-motion';
 import { generateCourse, transformApiResponseToPlaces, ApiError } from '../services/api';
 import type { Itinerary } from '../types';
